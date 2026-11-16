@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#c62828" />
+  <title>Tuk Tuk Lahore</title>
+  <!-- Only used for the Urdu landmark names; falls back to the system font offline. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <canvas id="game"></canvas>
+  <div id="flash"></div>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden">
+    <div class="hud-left">
+      <div class="pill score"><small>SCORE</small><b id="hud-score">0</b></div>
+      <div class="pill coins"><span class="coin-dot">Rs</span><b id="hud-coins">0</b></div>
+    </div>
+    <div class="hud-mid">
+      <div id="hud-mission" class="hidden">
+        <span id="hud-mission-text"></span>
+        <b id="hud-mission-time"></b>
+        <i id="hud-mission-bar"></i>
+      </div>
+    </div>
+    <div class="hud-right">
+      <div id="hud-lives" class="pill lives" aria-label="Lives"></div>
+      <div class="pill speed"><b id="hud-speed">0</b><small>km/h</small></div>
+      <button id="btn-mute" class="icon-btn" aria-label="Mute">🔊</button>
+      <button id="btn-pause" class="icon-btn" aria-label="Pause">❚❚</button>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+  <div id="bubble"><span id="bubble-text"></span></div>
+
+  <div id="card">
+    <div class="card-tag" id="card-tag">LANDMARK</div>
+    <h3 id="card-name"></h3>
+    <div id="card-urdu" lang="ur" dir="rtl"></div>
+    <p id="card-fact"></p>
+    <div class="card-bonus">+500 Explorer bonus</div>
+  </div>
+
+  <!-- Screens -->
+  <section id="screen-menu" class="screen">
+    <div class="panel">
+      <h1><span>Tuk</span><span>Tuk</span><span>Lahore</span></h1>
+      <p class="tagline">Lahore Lahore aye!</p>
+      <button class="btn big" data-act="play">▶ Play</button>
+      <button class="btn" data-act="customize">Customize</button>
+      <button class="btn" data-act="howto">How to Play</button>
+      <div class="stats">
+        <div>High score <b id="menu-high">0</b></div>
+        <div>Landmarks discovered <b id="menu-landmarks">0/7</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="screen-customize" class="screen hidden bottom">
+    <div class="panel wide">
+      <h2>Customize</h2>
+      <div class="label">Paint job</div>
+      <div id="scheme-list" class="choices"></div>
+      <div class="label">Horn</div>
+      <div id="horn-list" class="choices"></div>
+      <button class="btn" data-act="back">Done</button>
+    </div>
+  </section>
+
+  <section id="screen-howto" class="screen hidden">
+    <div class="panel wide">
+      <h2>How to Play</h2>
+      <ul class="howto">
+        <li><kbd>←</kbd><kbd>→</kbd> or <kbd>A</kbd><kbd>D</kbd> / swipe — change lane</li>
+        <li><kbd>↑</kbd> <kbd>W</kbd> <kbd>Space</kbd> / swipe up — hop over potholes</li>
+        <li><kbd>H</kbd> / tap — horn &nbsp; <kbd>M</kbd> — mute &nbsp; <kbd>P</kbd> <kbd>Esc</kbd> — pause</li>
+        <li>Dodge traffic, cows and road works. Three lives.</li>
+        <li>Grab rupee coins. Pass landmarks for a <b>+500</b> Explorer bonus.</li>
+        <li>A waving passenger? Drive in the lane next to them to pick them up, then reach the next landmark before the timer runs out for a fare.</li>
+      </ul>
+      <button class="btn" data-act="back">Got it</button>
+    </div>
+  </section>
+
+  <section id="screen-pause" class="screen hidden">
+    <div class="panel">
+      <h2>Paused</h2>
+      <p class="tagline">Chai break!</p>
+      <button class="btn big" data-act="resume">▶ Resume</button>
+      <button class="btn" data-act="menu">Main Menu</button>
+    </div>
+  </section>
+
+  <section id="screen-gameover" class="screen hidden">
+    <div class="panel">
+      <h2>Game Over</h2>
+      <p class="tagline" id="go-line"></p>
+      <div class="final"><small>FINAL SCORE</small><b id="go-score">0</b><em id="go-new" class="hidden">New high score!</em></div>
+      <div class="stats grid">
+        <div>Distance <b id="go-distance">0 m</b></div>
+        <div>Coins <b id="go-coins">0</b></div>
+        <div>Landmarks seen <b id="go-landmarks">0</b></div>
+        <div>Fares earned <b id="go-fares">Rs. 0</b></div>
+      </div>
+      <button class="btn big" data-act="play">Play Again</button>
+      <button class="btn" data-act="menu">Main Menu</button>
+    </div>
+  </section>
+
+  <pre id="debug" class="hidden"></pre>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
