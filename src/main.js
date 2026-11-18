@@ -1,4 +1,6 @@
 // Bootstrap, game loop, camera, and the glue between systems.
+import { inject } from '@vercel/analytics';
+inject();
 import * as THREE from 'three';
 import { game, save, persist, setState, onState, resetRun, SPEED_MIN, SPEED_MAX, SPEED_RAMP } from './game/state.js';
 import { createWorld } from './game/world.js';

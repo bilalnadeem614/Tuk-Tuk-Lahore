@@ -202,7 +202,8 @@ kbd { display: inline-block; min-width: 24px; text-align: center; background: va
   #hud { grid-template-columns: 1fr 1fr; }
   .hud-mid { grid-column: 1 / -1; grid-row: 2; justify-self: center; }
   #hud-mission { font-size: 13px; }
-  #card { top: 142px; width: min(250px, 70vw); padding: 6px 10px 8px; border-width: 4px; }
+  #card { top: 142px; width: min(190px, 48vw); padding: 4px 8px 5px; border-width: 3px; opacity: .92; }
+  #card-fact, .card-bonus { display: none; } /* compact: keep the road visible */
   #card h3 { font-size: 16px; }
   #card p { font-size: 11px; }
   #card-urdu { font-size: 15px; }
