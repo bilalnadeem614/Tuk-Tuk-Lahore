@@ -35,6 +35,7 @@ export function createPlayer(scene) {
     x: 0,
     y: 0,
     vy: 0,
+    jumps: 0, // jumps used since last landing (max 2 = double jump)
     invuln: 0,
     half: { x: 0.7, y: 0.95, z: 1.35 }, // collision half-extents
 
@@ -52,7 +53,7 @@ export function createPlayer(scene) {
       model.userData.passenger.visible = on;
     },
     reset() {
-      Object.assign(p, { lane: 1, x: 0, y: 0, vy: 0, invuln: 0 });
+      Object.assign(p, { lane: 1, x: 0, y: 0, vy: 0, jumps: 0, invuln: 0 });
       p.setPassenger(false);
     },
     /** Stop blinking (called when updates stop, e.g. game over). */
@@ -67,7 +68,8 @@ export function createPlayer(scene) {
       return moved;
     },
     jump() {
-      if (p.y > 0) return false;
+      if (p.jumps >= 2) return false;
+      p.jumps++;
       p.vy = JUMP;
       return true;
     },
@@ -78,7 +80,7 @@ export function createPlayer(scene) {
       if (p.y > 0 || p.vy > 0) {
         p.vy -= GRAVITY * dt;
         p.y += p.vy * dt;
-        if (p.y <= 0) p.y = p.vy = 0;
+        if (p.y <= 0) p.y = p.vy = p.jumps = 0;
       }
       const k = 0.5 + speed / SPEED_MAX;
       group.position.set(p.x, p.y + Math.abs(Math.sin(t * 38)) * 0.014 * k, 0);
